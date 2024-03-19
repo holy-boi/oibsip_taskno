@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="calculator" style="text-align:center;color:orange;">
+          <div class="holiboi">Holiboi</div>
+          <div class="date-time" id="date-time"></div>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <div class="row">
+                <button class="btn" onclick="clearDisplay()">C</button>
+                <button class="btn" onclick="appendOperator('**')">^</button>
+                <button class="btn" onclick="appendOperator('sqrt')">√</button>
+                <button class="btn" onclick="appendOperator('cbrt')">³√</button>
+            </div>
+            <div class="row">
+              <button class="btn" onclick="appendNumber(1)">1</button>
+                <button class="btn" onclick="appendNumber(4)">4</button>
+                <button class="btn" onclick="appendNumber(7)">7</button>
+                
+                
+                <button class="btn" onclick="appendOperator('/')" style="color:orange;">/</button>
+            </div>
+            <div class="row">
+                <button class="btn" onclick="appendNumber(2)">2</button>
+                <button class="btn" onclick="appendNumber(5)">5</button>
+                <button class="btn" onclick="appendNumber(😎">8</button>
+                
+                <button class="btn" onclick="appendOperator('*')" style="color:orange;">x</button>
+            </div>
+            <div class="row">
+                
+                
+                <button class="btn" onclick="appendNumber(3)">3</button>
+                <button class="btn" onclick="appendNumber(6)">6</button>
+                <button class="btn" onclick="appendNumber(9)">9</button>
+                <button class="btn" onclick="appendOperator('-')" style="color:orange;">-</button>
+            </div>
+            <div class="row">
+                <button class="btn zero" onclick="appendNumber(0)">0</button>
+                <button class="btn" onclick="appendDecimal()">.</button>
+                <button class="btn" onclick="appendOperator('+')" style="color:orange;">+</button>
+                <button class="btn equal" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+    
+        // Function to update date and time
+        function updateTime() {
+            var now = new Date();
+            var dateTime = now.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+            document.getElementById("date-time").textContent = dateTime;
+        }
+
+        // Update date and time every second
+        setInterval(updateTime, 1000);
+
+        // Call updateTime once on page load
+        updateTime();
+    </script>
+</body>
+</html>

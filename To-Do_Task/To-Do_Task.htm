@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            background-color: white;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #283149;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .header {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section-left {
+            width: 45%;
+        }
+        .section-right {
+            width: 50%;
+        }
+        .form-container {
+            background-color: #1F2833;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-container input[type="text"],
+        .form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            border: none;
+            color:black;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task h3 {
+    color: red; /* Set title color to red */
+    font-weight: normal; /* Remove bold font weight */
+}
+
+.task p {
+    color: green; /* Set description color to green */
+    font-weight: normal; /* Remove bold font weight */
+    max-width: 100%; /* Set maximum width to prevent overflowing */
+    word-wrap: break-word; /* Allow long words to break and wrap onto the next line */
+}
+
+        .task .delete-task {
+            cursor: pointer;
+            color: red;
+            margin-right: 12px;
+        }
+        .task .delete-task:hover {
+            color: darkred;
+        }
+        hr {
+            border: 1px solid white;
+            margin: 20px 0;
+        }
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .task .complete-task {
+            cursor: pointer;
+            color: green;
+        }
+        .task .complete-task:hover {
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Holiboi To-Do List Web App</div>
+        
+        <div class="section">
+            <div class="section-left">
+                <div class="form-container">
+                    <h2>Add Task</h2>
+                    <input type="text" id="task-title" placeholder="Enter task title..." required >
+                    <br>
+                    <textarea id="task-description" rows="4" placeholder="Enter task description..." required ></textarea>
+                    <br>
+                    <button onclick="addTask()">Add</button>
+                </div>
+            </div>
+            <div class="section-right">
+                <h2>Tasks To Do</h2>
+                <hr>
+                <div class="task-header">
+                    <h3>Title</h3>
+                    <h3>Desc</h3>
+                    <h3>Del</h3>
+                    <h3>Done</h3>
+                </div>
+                <ul class="task-list" id="pending-tasks">
+                    <!-- Pending tasks will be added dynamically here -->
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-left">
+                <h2>Tasks Done</h2>
+                <hr>
+                <ul class="task-list" id="completed-tasks">
+                    <!-- Completed tasks will be added dynamically here -->
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            var titleInput = document.getElementById("task-title");
+            var descriptionInput = document.getElementById("task-description");
+            var title = titleInput.value;
+            var description = descriptionInput.value;
+            
+            if (title.trim() !== "" && description.trim() !== "") {
+                var taskList = document.getElementById("pending-tasks");
+                var taskItem = document.createElement("li");
+                taskItem.className = "task";
+                taskItem.innerHTML = `
+                    <div>
+    <h3 style="font-size: 10px; color: black;">${getCurrentDateTime()}</h3>
+    <h3 style="color: red;">${title}</h3>
+</div>
+                    <div>
+                        <p>${description}</p>
+                    </div>
+                    <div class="delete-task" onclick="deleteTask(this)">❌</div>
+                    <div class="complete-task" onclick="completeTask(this)">✓</div>
+                `;
+                taskList.appendChild(taskItem);
+                titleInput.value = "";
+                descriptionInput.value ="";
+                function getCurrentDateTime() {
+    var currentDateTime = new Date();
+    var dateString = currentDateTime.toLocaleDateString();
+    var timeString = currentDateTime.toLocaleTimeString();
+    return dateString + " " + timeString;
+}
+            }
+        }
+
+        function deleteTask(task) {
+            task.parentNode.remove();
+        }
+
+        function completeTask(task) {
+            var taskItem = task.parentNode;
+            taskItem.classList.add("completed");
+            var completedTasks = document.getElementById("completed-tasks");
+            completedTasks.appendChild(taskItem);
+        }
+    </script>
+</body>
+</html>
